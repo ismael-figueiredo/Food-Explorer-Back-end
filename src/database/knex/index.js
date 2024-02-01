@@ -3,4 +3,4 @@ import config from '../../../knexfile.js'
 
 const connection = knex(config.development)
 
-module.exports = connection
+export default  connection
