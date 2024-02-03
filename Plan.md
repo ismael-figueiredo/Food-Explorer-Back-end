@@ -4,8 +4,8 @@
 - [x] Criar uma pasta "src" para organizar o código-fonte da aplicação.
 - [x] Criar uma pasta "controllers" para organizar os controllers.
 - [x] Criar uma pasta "database" para organizar os arquivos de banco de dados.
-- [ ] Criar uma pasta "middlewares" para organizar os middlewares.
-- [ ] Criar uma pasta "providers" para organizar a parte de upload da aplicação.
+- [x] Criar uma pasta "middlewares" para organizar os middlewares.
+- [x] Criar uma pasta "providers" para organizar a parte de upload da aplicação.
 - [x] Criar uma pasta "routes" para organizar os arquivos de rotas.
 - [x] Configurar o arquivo `server.js` com a porta da aplicação e as configurações do CORS.
 - [x] Configurar o `express.json()` para lidar com dados JSON.
