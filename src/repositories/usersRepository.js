@@ -1,8 +1,7 @@
 import knex from "../database/knex/index.js"
 
 class UsersRepository {
-  async findByName(email) {
-    console.log("userrepository")
+  async findByEmail(email) {
     const user = await knex("users").where({ email }).first()
     return user
   }

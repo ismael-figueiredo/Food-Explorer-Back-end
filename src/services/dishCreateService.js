@@ -1,8 +1,6 @@
 import AppError from "../utils/AppError.js"
-import pkg from "bcryptjs"
-const { hash } = pkg
 
-class UserCreateService {
+class DishCreateService {
   constructor(userRepository) {
     this.userRepository = userRepository
   }
@@ -25,4 +23,4 @@ class UserCreateService {
   }
 }
 
-export default UserCreateService
+export default DishCreateService

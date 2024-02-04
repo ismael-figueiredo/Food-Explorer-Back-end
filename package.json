@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "node --trace-warnings --watch server.js",
+    "dev": "nodemon --trace-warnings server.js",
     "migrate": "npx knex migrate:latest"
   },
   "keywords": [],
@@ -21,5 +21,8 @@
     "multer": "^1.4.5-lts.1",
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
   }
 }
