@@ -14,18 +14,18 @@
 
 ### Configurações de Dependências
 - [x] Instalar as dependências base: `express-async-errors`, `knex`, `sqlite`, `sqlite3`, `jsonwebtoken` e `multer`.
-- [ ] Configurar o JWT para autenticação.
-- [ ] Configurar o Multer nas rotas que precisam de upload de imagens.
+- [x] Configurar o JWT para autenticação.
+- [x] Configurar o Multer nas rotas que precisam de upload de imagens.
 - [x] Executar o comando `npx knex init` para criar o arquivo `knexfile.js` com as configurações de conexão com o banco de dados.
 - [x] Configurar o `knexfile.js` e adicionar o caminho onde as migrations serão salvas.
 
 ### Migrations e Banco de Dados
 - [x] Criar o caminho de pastas para as migrations dentro de `database`.
-- [ ] Criar as migrations necessárias para criar as tabelas do banco de dados.
+- [x] Criar as migrations necessárias para criar as tabelas do banco de dados.
   
 ### Middleware de Autenticação
-- [ ] Criar um middleware de autenticação para proteger rotas que precisam de autenticação.
-- [ ] Adicionar o middleware nas rotas que precisam ser autenticadas.
+- [x] Criar um middleware de autenticação para proteger rotas que precisam de autenticação.
+- [x] Adicionar o middleware nas rotas que precisam ser autenticadas.
 
 ### Rota de Usuário
 - [x] Criar um controller para o usuário.
@@ -33,11 +33,11 @@
 - [x] Criptografar a senha usando o Bcrypt.
 
 ### Rota de Sessão
-- [ ] Criar um controller para a sessão.
-- [ ] Criar um método para a criação de uma sessão:
-- [ ] Validar se o usuário existe.
-- [ ] Comparar as senhas.
-- [ ] Gerar um token de sessão.
+- [x] Criar um controller para a sessão.
+- [x] Criar um método para a criação de uma sessão:
+- [x] Validar se o usuário existe.
+- [x] Comparar as senhas.
+- [x] Gerar um token de sessão.
 
 ### Rota de Prato
 - [ ] Criar um controller para os pratos.
