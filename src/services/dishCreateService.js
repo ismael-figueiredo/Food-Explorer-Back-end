@@ -1,26 +1,32 @@
 import AppError from "../utils/AppError.js"
 
+
+
 class DishCreateService {
-  constructor(userRepository) {
-    this.userRepository = userRepository
+  constructor(dishRepository) {
+    this.dishRepository = dishRepository
   }
 
-  async execute({ name, email, password }) {
-    const hashedPassword = await hash(password, 8)
+  async execute({ name, category, description, price , image, user_id }) {
 
-    const checkUserExists = await this.userRepository.findByEmail(email)
-    if (checkUserExists) {
-      throw new AppError("Este e-mail já está em uso.", 400)
+    const checkDishExists = await this.dishRepository.findByName(name)
+    if (checkDishExists) {
+      throw new AppError("Este item já existe!", 400)
     }
 
-    const userCreated = await this.userRepository.create({
+    const dishCreated = await this.dishRepository.create({
       name,
-      password: hashedPassword,
-      email,
+      user_id,
+      category,
+      price,
+      description,
+      image
     })
-
-    return userCreated
+   
+    return dishCreated
   }
 }
 
 export default DishCreateService
+
+

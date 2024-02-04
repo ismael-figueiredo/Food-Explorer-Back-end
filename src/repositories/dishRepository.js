@@ -1,3 +1,4 @@
+import DiskStorage from "../providers/diskstorage.js"
 import knex from "../database/knex/index.js"
 
 class DishRepository {
@@ -5,14 +6,21 @@ class DishRepository {
     const dish = await knex("dish").where({ name }).first()
     return dish
   }
-
-  async create({ name, ingredients, password }) {
-    const userId = await knex("users").insert({
+    
+  async create({ name, category, price, image, description, user_id }) {
+    const dish = await knex("dish").insert({
       name,
-      email,
-      password,
+      user_id,
+      category,
+      price,
+      image,
+      description,
     })
-    return { id: userId }
+    const diskStorage = new DiskStorage()
+    if (image) {
+      await diskStorage.saveFile(image)
+    }
+    return { dish }
   }
 }
 
