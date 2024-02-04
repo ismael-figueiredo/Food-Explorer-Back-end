@@ -40,8 +40,8 @@
 - [x] Gerar um token de sessão.
 
 ### Rota de Prato
-- [ ] Criar um controller para os pratos.
-- [ ] Criar um método de criação de um prato.
+- [x] Criar um controller para os pratos.
+- [x] Criar um método de criação de um prato.
 - [ ] Implementar a lógica de criação dos ingredientes.
 - [ ] Criar um método de visualização de todos os pratos.
 - [ ] Implementar a lógica de busca por título do prato.
