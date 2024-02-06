@@ -6,7 +6,7 @@ class DishRepository {
     const dish = await knex("dish").where({ name }).first()
     return dish
   }
-    
+
   async create({ name, category, price, image, description, user_id }) {
     const dish = await knex("dish").insert({
       name,
@@ -20,7 +20,8 @@ class DishRepository {
     if (image) {
       await diskStorage.saveFile(image)
     }
-    return { dish }
+    const [id] = dish
+    return id
   }
 }
 
