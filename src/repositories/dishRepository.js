@@ -23,6 +23,10 @@ class DishRepository {
     const [id] = dish
     return id
   }
+
+  async delete({ id }) {
+    await knex("dish").delete({ id })
+  }
 }
 
 export default DishRepository

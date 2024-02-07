@@ -15,5 +15,6 @@ dishRoutes.post(
   upload.single("image"),
   dishController.create
 )
+dishRoutes.delete("/:id", verifyUserAuthorization(["admin"]),dishController.delete)
 
 export default dishRoutes

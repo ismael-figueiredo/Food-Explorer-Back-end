@@ -11,10 +11,9 @@ class SessionsController {
   async create(request, response) {
     const { email, password } = request.body
 
-    if(!email || !password){
+    if (!email || !password) {
       throw new AppError("Necessário informar email e senha!")
     }
-    
 
     const user = await knex("users").where({ email }).first()
 
@@ -33,9 +32,9 @@ class SessionsController {
       expiresIn,
     })
 
-
     return response.json({ user, token })
   }
+ 
 }
 
 export default SessionsController

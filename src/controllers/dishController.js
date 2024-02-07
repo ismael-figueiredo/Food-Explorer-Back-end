@@ -2,6 +2,8 @@ import DishRepository from "../repositories/dishRepository.js"
 import IngredientRepository from "../repositories/ingredientRepository.js"
 
 import DishCreateService from "../services/dishCreateService.js"
+import DishDeleteService from "../services/dishDeleteService.js"
+
 import AppError from "../utils/AppError.js"
 
 class DishController {
@@ -65,6 +67,18 @@ class DishController {
       )
     )
     return response.status(201).json()
+  }
+
+  async delete(request, response) {
+    const { id } = request.params
+    if (!id) {
+      throw new AppError("Id inesistente!", 400)
+    }
+    const dishRepository = new DishRepository()
+    const dishDeleteService = new DishDeleteService(dishRepository)
+    await dishDeleteService.execute({ id })
+
+    return response.status(200).json()
   }
 }
 
