@@ -1,4 +1,5 @@
 import DishRepository from "../repositories/dishRepository.js"
+import knex from "../database/knex/index.js"
 import IngredientRepository from "../repositories/ingredientRepository.js"
 
 import DishCreateService from "../services/dishCreateService.js"
@@ -79,6 +80,65 @@ class DishController {
     await dishDeleteService.execute({ id })
 
     return response.status(200).json()
+  }
+
+  async index(request, response) {
+    const { search } = request.query
+
+    let dishes = await knex("dish")
+      .select(
+        "dish.id",
+        "dish.name",
+        "dish.description",
+        "dish.price",
+        "dish.category"
+      )
+      .distinct()
+      .leftJoin("ingredients", "dish.id", "ingredients.dish_id")
+      .where("dish.name", "like", `%${search}%`)
+      .orWhere("dish.category", "like", `%${search}%`)
+      .orWhere("ingredients.name", "like", `%${search}%`)
+      .orderBy("dish.name")
+
+    const dishesWithIngredients = await Promise.all(
+      dishes.map(async (dish) => {
+        const ingredients = await knex("ingredients")
+          .select("name")
+          .where("dish_id", dish.id)
+
+        const ingredientNames = ingredients.map((ingredient) => ingredient.name)
+
+        return {
+          ...dish,
+          ingredients: ingredientNames,
+        }
+      })
+    )
+
+    return response.json({ dishes: dishesWithIngredients })
+  }
+  async show(request, response) {
+    const { id } = request.params
+
+    // Buscar o prato pelo ID
+    const dish = await knex("dish").where({ id }).first()
+
+    if (!dish) {
+      return response.status(404).json({ message: "Dish not found" })
+    }
+
+    // Buscar os ingredientes associados ao prato
+    const ingredients = await knex("ingredients")
+      .select("name")
+      .where("dish_id", id)
+
+    // Mapeia os resultados para obter apenas o nome do ingrediente
+    const ingredientNames = ingredients.map((ingredient) => ingredient.name)
+
+    // Adiciona os ingredientes ao objeto do prato
+    dish.ingredients = ingredientNames
+
+    return response.json(dish)
   }
 }
 
