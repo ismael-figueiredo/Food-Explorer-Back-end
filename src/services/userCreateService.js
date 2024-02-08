@@ -8,6 +8,9 @@ class UserCreateService {
   }
 
   async execute({ name, email, password }) {
+    if (!name || !email || !password) {
+      throw new AppError("Campos nome, e-mail ou senha não fornecidos.", 400)
+    }
     const hashedPassword = await hash(password, 8)
 
     const checkUserExists = await this.userRepository.findByEmail(email)
