@@ -25,8 +25,19 @@ class DishRepository {
   }
 
   async delete({ id }) {
+    const dish = await knex("dish").where({ id }).first()
+    if (!dish) {
+      throw new AppError("Informe um id vádido", 400)
+    }
+
+    const diskStorage = new DiskStorage()
+
+    if (dish.image) {
+      await diskStorage.deleteFile(dish.image)
+    }
     await knex("dish").delete({ id })
   }
+
 }
 
 export default DishRepository

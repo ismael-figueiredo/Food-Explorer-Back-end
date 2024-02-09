@@ -1,58 +1,27 @@
 import DishRepository from "../repositories/dishRepository.js"
 import knex from "../database/knex/index.js"
 import IngredientRepository from "../repositories/ingredientRepository.js"
-
 import DishCreateService from "../services/dishCreateService.js"
 import DishDeleteService from "../services/dishDeleteService.js"
-
-import AppError from "../utils/AppError.js"
 
 class DishController {
   async create(request, response) {
     const { name, description, price, category, ingredients } = request.body
+    const image = request.file?.filename
     const { id: user_id } = request.user
 
-    const filename = request.file.filename
-    if (!name || !price || !category || !description) {
-      throw new AppError("Preencha todos os campos!.", 400)
-    }
-
     const dishRepository = new DishRepository()
-
-    if (!filename) {
-      throw new AppError("Imagem não definida!", 400)
-    }
-
-    let ingredientsArray
-
-    if (typeof ingredients === "string") {
-      try {
-        ingredientsArray = JSON.parse(ingredients)
-        if (!Array.isArray(ingredientsArray)) {
-          throw new Error("Parsed ingredients is not an array.")
-        }
-      } catch (error) {
-        throw new AppError(
-          "Erro ao processar os ingredientes. Certifique-se de que estejam no formato correto.",
-          400
-        )
-      }
-    } else if (Array.isArray(ingredients)) {
-      ingredientsArray = ingredients
-      if (ingredients.length === 0) {
-        throw new AppError("Informe os ingredientes do prato!", 400)
-      }
-    } else {
-      throw new AppError("Formato de ingredientes inválido.", 400)
-    }
-
     const dishCreateService = new DishCreateService(dishRepository)
+
+    const ingredientsArray = await dishCreateService.handleIngrdients(
+      ingredients
+    )
     const dish_id = await dishCreateService.execute({
       name,
       description,
       price,
       user_id,
-      image: filename,
+      image,
       category,
     })
     const ingredientsToSave = ingredientsArray.map((ingredient) => {
@@ -72,9 +41,7 @@ class DishController {
 
   async delete(request, response) {
     const { id } = request.params
-    if (!id) {
-      throw new AppError("Id inesistente!", 400)
-    }
+
     const dishRepository = new DishRepository()
     const dishDeleteService = new DishDeleteService(dishRepository)
     await dishDeleteService.execute({ id })
@@ -119,23 +86,17 @@ class DishController {
   }
   async show(request, response) {
     const { id } = request.params
-
-    // Buscar o prato pelo ID
     const dish = await knex("dish").where({ id }).first()
 
     if (!dish) {
       return response.status(404).json({ message: "Dish not found" })
     }
 
-    // Buscar os ingredientes associados ao prato
     const ingredients = await knex("ingredients")
       .select("name")
       .where("dish_id", id)
 
-    // Mapeia os resultados para obter apenas o nome do ingrediente
     const ingredientNames = ingredients.map((ingredient) => ingredient.name)
-
-    // Adiciona os ingredientes ao objeto do prato
     dish.ingredients = ingredientNames
 
     return response.json(dish)

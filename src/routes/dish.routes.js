@@ -20,7 +20,7 @@ dishRoutes.delete(
   verifyUserAuthorization(["admin"]),
   dishController.delete
 )
-dishRoutes.get("/",dishController.index)
+dishRoutes.get("/", dishController.index)
 dishRoutes.get("/:id", dishController.show)
 
 export default dishRoutes
