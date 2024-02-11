@@ -1,9 +1,14 @@
 import DiskStorage from "../providers/diskstorage.js"
 import knex from "../database/knex/index.js"
+import AppError from "../utils/AppError.js"
 
 class DishRepository {
   async findByName(name) {
     const dish = await knex("dish").where({ name }).first()
+    return dish
+  }
+  async findById(id) {
+    const dish = await knex("dish").where({ id }).first()
     return dish
   }
 
@@ -26,10 +31,7 @@ class DishRepository {
 
   async delete({ id }) {
     const dish = await knex("dish").where({ id }).first()
-    if (!dish) {
-      throw new AppError("Informe um id vádido", 400)
-    }
-
+    
     const diskStorage = new DiskStorage()
 
     if (dish.image) {
@@ -37,7 +39,6 @@ class DishRepository {
     }
     await knex("dish").delete({ id })
   }
-
 }
 
 export default DishRepository

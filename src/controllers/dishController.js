@@ -89,7 +89,7 @@ class DishController {
     const dish = await knex("dish").where({ id }).first()
 
     if (!dish) {
-      return response.status(404).json({ message: "Dish not found" })
+      return response.status(404).json({ message: "Prato não encontrado" })
     }
 
     const ingredients = await knex("ingredients")

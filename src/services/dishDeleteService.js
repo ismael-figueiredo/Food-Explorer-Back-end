@@ -1,6 +1,4 @@
-import knex from "../database/knex/index.js"
 import AppError from "../utils/AppError.js"
-import DiskStorage from "../providers/diskstorage.js"
 
 class DishDeleteService {
   constructor(dishRepository) {
@@ -8,15 +6,14 @@ class DishDeleteService {
   }
 
   async execute({ id }) {
-    if (!id) {
+    const checkIdExistis = await this.dishRepository.findById(id)
+
+    if (!checkIdExistis) {
       throw new AppError("Id inesistente!", 400)
     }
-  
     const dishDeleted = await this.dishRepository.delete({
       id,
     })
-
-
 
     return dishDeleted
   }
