@@ -1,8 +1,9 @@
+import "dotenv/config.js"
 import "express-async-errors"
 import express from "express"
-import AppError from "./src/utils/AppError.js"
+import AppError from "./utils/AppError.js"
 import cors from "cors"
-import routes from "./src/routes/index.js"
+import routes from "./routes/index.js"
 
 const app = express()
 app.use(cors())
@@ -26,7 +27,7 @@ app.use((error, request, response, next) => {
   })
 })
 
-const PORT = 3000
+const PORT = process.env.SERVER_PORT || 3333
 
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server is running on Port ${PORT}`)

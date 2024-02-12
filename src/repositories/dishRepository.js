@@ -6,6 +6,7 @@ class DishRepository {
     const dish = await knex("dish").where({ name }).first()
     return dish
   }
+
   async findById(id) {
     const dish = await knex("dish").where({ id }).first()
     return dish
@@ -36,18 +37,16 @@ class DishRepository {
       price,
       image,
       description,
-      updated_at: new Date()
+      updated_at: new Date(),
     })
     const diskStorage = new DiskStorage()
-    console.log(dishUpdated.image)
-
     if (dishUpdated.image) {
       await diskStorage.deleteFile(dishUpdated.image)
     }
     if (image) {
       await diskStorage.saveFile(image)
     }
-    
+
     return dish
   }
 

@@ -12,7 +12,7 @@ class IngredientRepository {
   }
 
   async update({ name, dish_id }) {
-    await knex("ingredients").where({dish_id}).delete({ dish_id })
+    await knex("ingredients").where({ dish_id }).delete({ dish_id })
 
     const ingredients = await knex("ingredients").insert({
       name,
