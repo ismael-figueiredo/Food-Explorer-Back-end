@@ -1,4 +1,4 @@
-# FoodExplorer API 
+# Food Explorer API 
 
 ## Sobre o Projeto
 
