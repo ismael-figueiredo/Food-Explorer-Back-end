@@ -4,6 +4,8 @@
 
 A FoodExplorer API é uma solução inovadora desenvolvida por mim para o Desafio Final do curso Explorer da Rocketseat. Esta API robusta e confiável foi projetada para transformar a gestão de catálogos de pratos em restaurantes, incorporando funcionalidades avançadas como cadastro, atualização, exclusão, e listagem de pratos, além de autenticação de usuários e controle de acesso diferenciado. Com o uso de tecnologias de ponta e uma arquitetura planejada para escalabilidade, o FoodExplorer API está preparado para implementação e melhorias em ambientes reais, oferecendo uma solução completa para digitalizar a experiência gastronômica.
 
+<img  alt="Projeto Dashboard CoroPlus®"  src=".github/Capa.png"  width="100%">
+
 ## Funcionalidades Principais
 
 - **Autenticação  e autorização de Usuários**: Segurança reforçada com login e registro utilizando JWT, garantindo que apenas usuários autenticados possam acessar a aplicação e funcionalidades específicas.
