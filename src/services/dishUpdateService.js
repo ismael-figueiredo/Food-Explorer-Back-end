@@ -1,11 +1,11 @@
 import AppError from "../utils/AppError.js"
 
-class DishCreateService {
+class DishUpdateService {
   constructor(dishRepository) {
     this.dishRepository = dishRepository
   }
 
-  async handleCreateIngrdients(ingredients) {
+  async handleUpdateIngrdients(ingredients) {
     let ingredientsArray
 
     if (typeof ingredients === "string") {
@@ -32,30 +32,26 @@ class DishCreateService {
     return ingredientsArray
   }
 
-  async execute({ name, category, description, price, image, user_id }) {
-    if (!name || !category || !description || !price || !user_id) {
+  async execute({ id, name, category, description, price, image, dish_id }) {
+    if (!id || !name || !category || !description || !price || !dish_id) {
       throw new AppError("Informe todos os campos!", 400)
     }
     if (!image) {
       throw new AppError("Imagem não definida!", 400)
     }
 
-    const checkDishExists = await this.dishRepository.findByName(name)
-    if (checkDishExists) {
-      throw new AppError("Este item já existe!", 400)
-    }
-
-    const dishCreated = await this.dishRepository.create({
+    const dishUpdated = await this.dishRepository.update({
+      id,
       name,
-      user_id,
+      dish_id,
       category,
       price,
       description,
       image,
     })
 
-    return dishCreated
+    return dishUpdated
   }
 }
 
-export default DishCreateService
+export default DishUpdateService

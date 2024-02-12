@@ -3,6 +3,7 @@ import knex from "../database/knex/index.js"
 import IngredientRepository from "../repositories/ingredientRepository.js"
 import DishCreateService from "../services/dishCreateService.js"
 import DishDeleteService from "../services/dishDeleteService.js"
+import DishUpdateService from "../services/dishUpdateService.js"
 
 class DishController {
   async create(request, response) {
@@ -13,7 +14,7 @@ class DishController {
     const dishRepository = new DishRepository()
     const dishCreateService = new DishCreateService(dishRepository)
 
-    const ingredientsArray = await dishCreateService.handleIngrdients(
+    const ingredientsArray = await dishCreateService.handleCreateIngrdients(
       ingredients
     )
     const dish_id = await dishCreateService.execute({
@@ -24,6 +25,7 @@ class DishController {
       image,
       category,
     })
+
     const ingredientsToSave = ingredientsArray.map((ingredient) => {
       return {
         name: ingredient,
@@ -34,6 +36,41 @@ class DishController {
     await Promise.all(
       ingredientsToSave.map((ingredient) =>
         ingredientRepository.create(ingredient)
+      )
+    )
+    return response.status(201).json()
+  }
+
+  async update(request, response) {
+    const { name, description, price, category, ingredients } = request.body
+    const image = request.file?.filename
+    const { id } = request.params
+
+    const dishRepository = new DishRepository()
+    const dishUpdateService = new DishUpdateService(dishRepository)
+
+    const ingredientsArray = await dishUpdateService.handleUpdateIngrdients(
+      ingredients
+    )
+    await dishUpdateService.execute({
+      id,
+      name,
+      description,
+      price,
+      dish_id: id,
+      image,
+      category,
+    })
+    const ingredientsToSave = ingredientsArray.map((ingredient) => {
+      return {
+        name: ingredient,
+        dish_id: id,
+      }
+    })
+    const ingredientRepository = new IngredientRepository()
+    await Promise.all(
+      ingredientsToSave.map((ingredient) =>
+        ingredientRepository.update(ingredient)
       )
     )
     return response.status(201).json()
@@ -84,6 +121,7 @@ class DishController {
 
     return response.json({ dishes: dishesWithIngredients })
   }
+
   async show(request, response) {
     const { id } = request.params
     const dish = await knex("dish").where({ id }).first()

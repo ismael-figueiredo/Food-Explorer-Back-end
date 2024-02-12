@@ -1,6 +1,5 @@
 import DiskStorage from "../providers/diskstorage.js"
 import knex from "../database/knex/index.js"
-import AppError from "../utils/AppError.js"
 
 class DishRepository {
   async findByName(name) {
@@ -29,9 +28,32 @@ class DishRepository {
     return id
   }
 
+  async update({ name, id, category, price, image, description }) {
+    const dishUpdated = await knex("dish").where({ id }).first()
+    const dish = await knex("dish").where({ id }).update({
+      name,
+      category,
+      price,
+      image,
+      description,
+      updated_at: new Date()
+    })
+    const diskStorage = new DiskStorage()
+    console.log(dishUpdated.image)
+
+    if (dishUpdated.image) {
+      await diskStorage.deleteFile(dishUpdated.image)
+    }
+    if (image) {
+      await diskStorage.saveFile(image)
+    }
+    
+    return dish
+  }
+
   async delete({ id }) {
     const dish = await knex("dish").where({ id }).first()
-    
+
     const diskStorage = new DiskStorage()
 
     if (dish.image) {
