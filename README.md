@@ -1,4 +1,4 @@
-# Food Explorer API 
+# Food Explorer API
 
 ## Sobre o Projeto
 
@@ -6,9 +6,13 @@ A FoodExplorer API é uma solução inovadora desenvolvida por mim para o Desafi
 
 <img  alt="Projeto Dashboard CoroPlus®"  src=".github/Capa.png"  width="100%">
 
+## Demonstração Online
+
+A API está disponível para testes e demonstração no seguinte endereço: [apifoodexplorer-6mfn.onrender.com/](https://api-foodexplorer-6mfn.onrender.com/). Sinta-se à vontade para explorar as funcionalidades e testar os endpoints disponíveis para ter uma ideia da capacidade e do desempenho da API em um ambiente de produção real.
+
 ## Funcionalidades Principais
 
-- **Autenticação  e autorização de Usuários**: Segurança reforçada com login e registro utilizando JWT, garantindo que apenas usuários autenticados possam acessar a aplicação e funcionalidades específicas.
+- **Autenticação e autorização de Usuários**: Segurança reforçada com login e registro utilizando JWT, garantindo que apenas usuários autenticados possam acessar a aplicação e funcionalidades específicas.
 - **Gerenciamento de Pratos**: Facilita a adição, listagem, modificação e remoção de pratos, simplificando o controle do catálogo.
 - **Busca Avançada**: Permite aos usuários encontrar pratos por nome, categoria ou ingredientes, melhorando a experiência de busca.
 - **Níveis de Acesso**: Implementa controles de acesso para administradores e clientes, assegurando a execução segura de operações críticas.
@@ -25,6 +29,7 @@ A FoodExplorer API é uma solução inovadora desenvolvida por mim para o Desafi
 ## Arquitetura do Projeto
 
 Este projeto adota uma arquitetura baseada na separação clara de responsabilidades, compreendendo:
+
 - **Controllers**: Para o tratamento de requisições e respostas HTTP.
 - **Repositories**: Para abstração da lógica de acesso a dados.
 - **Services**: Para encapsulamento da lógica de negócios, promovendo reuso e desacoplamento.
@@ -34,4 +39,4 @@ Esta abordagem garante não apenas a escalabilidade do projeto, mas também sua 
 
 ## Pronto para o Mercado
 
-O FoodExplorer API transcende o escopo de um projeto acadêmico, apresentando-se como uma solução de mercado viável, com apenas alguns ajustes estará  pronta para implementação. Graças à sua base sólida, uso de tecnologias atualizadas e arquitetura pensada para o futuro, este projeto é ideal para restaurantes que buscam inovar no gerenciamento de seus catálogos de pratos e proporcionar uma experiência digital aprimorada aos seus clientes.
+O FoodExplorer API transcende o escopo de um projeto acadêmico, apresentando-se como uma solução de mercado viável, com apenas alguns ajustes estará pronta para implementação. Graças à sua base sólida, uso de tecnologias atualizadas e arquitetura pensada para o futuro, este projeto é ideal para restaurantes que buscam inovar no gerenciamento de seus catálogos de pratos e proporcionar uma experiência digital aprimorada aos seus clientes.
