@@ -8,7 +8,7 @@ const routes = Router()
 
 routes.use("/session",sessionRoutes)
 routes.use("/users", userRoutes)
-//routes.use(ensureAuthenticated)
+routes.use(ensureAuthenticated)
 routes.use("/dish", dishRoutes)
 
 export default routes
