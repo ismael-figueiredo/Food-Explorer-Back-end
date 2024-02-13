@@ -4,11 +4,13 @@ import express from "express"
 import AppError from "./utils/AppError.js"
 import cors from "cors"
 import routes from "./routes/index.js"
+import upload from "./configs/upload.js"
 
 const app = express()
 app.use(cors())
 app.use(express.json())
 
+app.use("/files", express.static(upload.UPLOADS_FOLDER))
 app.use(routes)
 
 app.use((error, request, response, next) => {
