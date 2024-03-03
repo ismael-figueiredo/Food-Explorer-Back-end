@@ -1,4 +1,5 @@
 import AppError from "../utils/AppError.js"
+import knex from "../database/knex/index.js"
 
 class DishUpdateService {
   constructor(dishRepository) {
@@ -36,8 +37,16 @@ class DishUpdateService {
     if (!id || !name || !category || !description || !price || !dish_id) {
       throw new AppError("Informe todos os campos!", 400)
     }
+
+    let finalImage = image
+
     if (!image) {
-      throw new AppError("Imagem não definida!", 400)
+      const currentDish = await knex("dish").where({ id }).first()
+      if (!currentDish) {
+        throw new AppError("Prato não encontrado!", 404)
+      }
+
+      finalImage = currentDish.image
     }
 
     const dishUpdated = await this.dishRepository.update({
@@ -47,7 +56,7 @@ class DishUpdateService {
       category,
       price,
       description,
-      image,
+      image: finalImage,
     })
 
     return dishUpdated

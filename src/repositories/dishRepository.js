@@ -40,10 +40,8 @@ class DishRepository {
       updated_at: new Date(),
     })
     const diskStorage = new DiskStorage()
-    if (dishUpdated.image) {
+    if (dishUpdated.image !== image) {
       await diskStorage.deleteFile(dishUpdated.image)
-    }
-    if (image) {
       await diskStorage.saveFile(image)
     }
 
