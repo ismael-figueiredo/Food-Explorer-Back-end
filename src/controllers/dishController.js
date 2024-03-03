@@ -93,6 +93,7 @@ class DishController {
       .select(
         "dish.id",
         "dish.name",
+        "dish.image",
         "dish.description",
         "dish.price",
         "dish.category"
