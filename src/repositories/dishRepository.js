@@ -42,9 +42,9 @@ class DishRepository {
     const diskStorage = new DiskStorage()
     if (dishUpdated.image !== image) {
       await diskStorage.deleteFile(dishUpdated.image)
-      await diskStorage.saveFile(image)
+       await diskStorage.saveFile(image)
     }
-
+  
     return dish
   }
 
@@ -56,7 +56,7 @@ class DishRepository {
     if (dish.image) {
       await diskStorage.deleteFile(dish.image)
     }
-    await knex("dish").delete({ id })
+   await knex("dish").where({ id }).del()
   }
 }
 

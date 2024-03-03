@@ -9,13 +9,12 @@ class DishDeleteService {
     const checkIdExistis = await this.dishRepository.findById(id)
 
     if (!checkIdExistis) {
-      throw new AppError("Id inesistente!", 400)
+      throw new AppError("Id inexistente!", 400)
     }
-    const dishDeleted = await this.dishRepository.delete({
-      id,
-    })
 
-    return dishDeleted
+    await this.dishRepository.delete({ id })
+
+    return { message: "Prato deletado com sucesso!" }
   }
 }
 
