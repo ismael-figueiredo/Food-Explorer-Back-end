@@ -31,10 +31,9 @@ class SessionsController {
       subject: String(user.id),
       expiresIn,
     })
-
+    delete user.password
     return response.json({ user, token })
   }
- 
 }
 
 export default SessionsController
